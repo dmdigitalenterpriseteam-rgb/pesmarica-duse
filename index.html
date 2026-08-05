@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="sr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dušica Jovović — Pesmarica duše</title>
+  <meta name="description" content="Dušica Jovović — Pesmarica duše. Autorske pesme pretočene u muziku, za izvođače i publiku koja ume da ih oseti.">
+  <meta name="theme-color" content="#110705">
+  <meta property="og:title" content="Dušica Jovović — Pesmarica duše">
+  <meta property="og:description" content="Autorske pesme pretočene u muziku.">
+  <meta property="og:image" content="assets/hero.webp">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/webp" href="assets/logo.webp">
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* FINAL HEADER/HERO FIX
+       - nema široke navigacione lajsne
+       - navigacija je transparentno položena preko HERO fotografije
+       - logo je veći i samostalan, bez dodatnog teksta pored njega
+       - HERO više nije potisnut naniže, a sledeća sekcija ostaje ispod prvog ekrana */
+
+    .site-header{
+      position:absolute;
+      top:0;
+      left:0;
+      right:0;
+      z-index:80;
+      min-height:0;
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:28px;
+      padding:clamp(18px,2.6vw,34px) clamp(24px,5vw,82px);
+      background:linear-gradient(180deg, rgba(10,3,2,.58) 0%, rgba(10,3,2,.18) 58%, rgba(10,3,2,0) 100%);
+      border-bottom:0;
+      backdrop-filter:none;
+      pointer-events:none;
+    }
+
+    .brand{
+      display:flex;
+      align-items:flex-start;
+      gap:0;
+      min-width:0;
+      pointer-events:auto;
+    }
+
+    .brand span{display:none!important;}
+
+    .site-logo-img{
+      width:174px;
+      height:174px;
+      max-height:none;
+      object-fit:contain;
+      flex:0 0 auto;
+      border-radius:0;
+      filter:
+        drop-shadow(0 18px 34px rgba(0,0,0,.92))
+        drop-shadow(0 0 24px rgba(236,190,92,.48));
+      transform:none;
+    }
+
+    .site-nav{
+      display:flex;
+      align-items:center;
+      gap:24px;
+      padding:13px 18px;
+      margin-top:10px;
+      border:1px solid rgba(232,186,95,.20);
+      border-radius:999px;
+      background:rgba(11,4,3,.26);
+      color:#ffe5b4;
+      text-shadow:0 2px 12px rgba(0,0,0,.95);
+      backdrop-filter:blur(8px);
+      box-shadow:0 14px 38px rgba(0,0,0,.22);
+      flex:0 0 auto;
+      pointer-events:auto;
+    }
+
+    .site-nav a{
+      font-weight:800;
+      opacity:.96;
+      white-space:nowrap;
+    }
+
+    .site-nav a:hover{color:#ffd676;opacity:1;}
+
+    .hero{
+      position:relative;
+      min-height:100svh;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:flex-start;
+      padding:clamp(54px,5vw,82px) clamp(14px,2.4vw,40px) 56px;
+      background:
+        radial-gradient(circle at 72% 40%,rgba(159,91,28,.34),transparent 38%),
+        linear-gradient(180deg,#070201,#160705 72%,#100604);
+      overflow:hidden;
+    }
+
+    .hero-image{
+      width:min(100%,1920px);
+      height:auto;
+      border-radius:0;
+      box-shadow:0 30px 90px rgba(0,0,0,.58);
+    }
+
+    .hero-actions{
+      position:absolute;
+      left:50%;
+      bottom:44px;
+      transform:translateX(-50%);
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      justify-content:center;
+      z-index:25;
+    }
+
+    @media(max-width:1180px){
+      .site-logo-img{width:148px;height:148px;}
+      .site-nav{gap:18px;padding:11px 15px;font-size:13px;}
+    }
+
+    @media(max-width:860px){
+      .site-header{
+        padding:14px 18px;
+        background:linear-gradient(180deg, rgba(10,3,2,.64) 0%, rgba(10,3,2,.18) 62%, rgba(10,3,2,0) 100%);
+      }
+      .site-logo-img{width:118px;height:118px;}
+      .site-nav{display:none;}
+      .hero{
+        min-height:auto;
+        padding:78px 0 34px;
+      }
+      .hero-image{
+        width:100%;
+        box-shadow:none;
+      }
+      .hero-actions{
+        position:static;
+        transform:none;
+        margin-top:18px;
+        padding:0 16px;
+        width:100%;
+      }
+      .btn{width:100%;}
+    }
+
+    @media(max-width:520px){
+      .site-header{padding:10px 12px;}
+      .site-logo-img{width:92px;height:92px;}
+      .hero{padding-top:66px;}
+    }
+    .dm-footer-credit{
+      margin-top:22px;
+      padding-top:18px;
+      border-top:1px solid rgba(232,186,95,.18);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    .dm-footer-credit a{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:12px;
+      color:#f7d38a;
+      text-decoration:none;
+      font-weight:700;
+      letter-spacing:.02em;
+      transition:opacity .2s ease, transform .2s ease;
+    }
+
+    .dm-footer-credit a:hover{
+      opacity:.92;
+      transform:translateY(-1px);
+    }
+
+    .dm-footer-credit img{
+      width:58px;
+      height:58px;
+      object-fit:contain;
+      filter:drop-shadow(0 8px 20px rgba(0,0,0,.55));
+    }
+
+    .dm-footer-credit span{
+      font-size:13px;
+      line-height:1.45;
+      color:rgba(255,235,190,.86);
+    }
+
+    .dm-footer-credit strong{
+      display:block;
+      color:#f7d38a;
+      font-size:15px;
+      letter-spacing:.04em;
+    }
+
+    @media(max-width:520px){
+      .dm-footer-credit{
+        gap:10px;
+        text-align:center;
+      }
+      .dm-footer-credit a{
+        flex-direction:column;
+      }
+      .dm-footer-credit img{
+        width:68px;
+        height:68px;
+      }
+    }
+
+
+    /* MOBILE FOOTER CENTER FIX */
+    @media(max-width:700px){
+      .site-footer{
+        text-align:center!important;
+        display:flex!important;
+        flex-direction:column!important;
+        align-items:center!important;
+        justify-content:center!important;
+        padding-left:24px!important;
+        padding-right:24px!important;
+      }
+      .site-footer p{
+        width:100%;
+        max-width:340px;
+        margin-left:auto!important;
+        margin-right:auto!important;
+        text-align:center!important;
+      }
+      .dm-footer-credit{
+        width:100%;
+        max-width:340px;
+        margin-left:auto!important;
+        margin-right:auto!important;
+        justify-content:center!important;
+        text-align:center!important;
+      }
+      .dm-footer-credit a{
+        width:100%;
+        align-items:center!important;
+        justify-content:center!important;
+        text-align:center!important;
+      }
+      .dm-footer-credit span,
+      .dm-footer-credit strong{
+        text-align:center!important;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <header class="site-header" id="top">
+    <a class="brand" href="#top" aria-label="Dušica Jovović početna">
+      <img class="site-logo-img" src="assets/logo.webp" alt="Dušica Jovović logo">
+    </a>
+    <nav class="site-nav" aria-label="Glavna navigacija">
+      <a href="#pesme">Pesme</a>
+      <a href="#o-dusici">O Dušici</a>
+      <a href="#saradnja">Saradnja</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <img class="hero-image" src="assets/hero.webp" alt="Dušica Jovović — Pesmarica duše">
+      <div class="hero-actions">
+        <a class="btn primary" href="#pesme">Poslušaj pesme</a>
+        <a class="btn ghost" href="https://www.youtube.com/@dusicajovovicofficial" target="_blank" rel="noopener">YouTube kanal</a>
+      </div>
+      <h1 id="hero-title" class="visually-hidden">Dušica Jovović — Pesmarica duše</h1>
+    </section>
+
+    <section class="intro section-pad" id="o-dusici">
+      <div class="eyebrow">Pesmarica duše</div>
+      <h2>Pesme koje nastaju iz života.</h2>
+      <p>
+        Dušica Jovović piše pesme koje nose ljubav, sećanja, bol, kafanu, osmeh i one trenutke
+        kada srce kaže ono što reči dugo ćute. Njene autorske pesme su pretočene u muziku kao
+        prvi korak ka izvođačima, producentima i publici koja će ih prepoznati.
+      </p>
+      <div class="intro-note">
+        <strong>Tekstovi:</strong> Dušica Jovović · <strong>Muzika:</strong> kreirana uz pomoć veštačke inteligencije ·
+        <strong>Autorska prava:</strong> zaštićena kod SOKOJ-a
+      </div>
+    </section>
+
+    <section class="songs section-pad" id="pesme">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Autorske pesme</div>
+          <h2>Izabrane pesme</h2>
+        </div>
+      </div>
+      <div class="song-grid">
+        
+        <article class="song-card reveal">
+          <div class="song-poster">
+            <img src="assets/covers/caj-sa-rumom.webp" alt="Cover za pesmu Čaj sa rumom" loading="lazy">
+            <span class="song-mood">Tiha boemska</span>
+          </div>
+          <div class="song-body">
+            <h3>Čaj sa rumom</h3>
+            <p>Kišna noć, šolja čaja i uspomena koja tiho boli.</p>
+            <button class="song-btn" type="button" data-video="assets/videos/caj-sa-rumom.mp4">Pusti video</button>
+          </div>
+        </article>
+        
+
+        <article class="song-card reveal">
+          <div class="song-poster">
+            <img src="assets/covers/tuga-koja-se-slavi.webp" alt="Cover za pesmu Tuga koja se slavi" loading="lazy">
+            <span class="song-mood">Boemska drama</span>
+          </div>
+          <div class="song-body">
+            <h3>Tuga koja se slavi</h3>
+            <p>Kafana, muzika i gorčina koja se preživi kroz pesmu.</p>
+            <button class="song-btn" type="button" data-video="assets/videos/tuga-koja-se-slavi.mp4">Pusti video</button>
+          </div>
+        </article>
+        
+
+        <article class="song-card reveal">
+          <div class="song-poster">
+            <img src="assets/covers/a-ja-volim-zivot.webp" alt="Cover za pesmu A, ja volim život" loading="lazy">
+            <span class="song-mood">Vesela kafanska</span>
+          </div>
+          <div class="song-body">
+            <h3>A, ja volim život</h3>
+            <p>Životna energija, trube i radost jača od tuge.</p>
+            <button class="song-btn" type="button" data-video="assets/videos/a-ja-volim-zivot.mp4">Pusti video</button>
+          </div>
+        </article>
+        
+
+        <article class="song-card reveal">
+          <div class="song-poster">
+            <img src="assets/covers/boze-dal-je-ovo-znak.webp" alt="Cover za pesmu Bože, dal je ovo znak" loading="lazy">
+            <span class="song-mood">Emotivna, ritmična</span>
+          </div>
+          <div class="song-body">
+            <h3>Bože, dal je ovo znak</h3>
+            <p>Kada stara pesma pogodi čoveka pravo u srce.</p>
+            <button class="song-btn" type="button" data-video="assets/videos/boze-dal-je-ovo-znak.mp4">Pusti video</button>
+          </div>
+        </article>
+        
+
+        <article class="song-card reveal">
+          <div class="song-poster">
+            <img src="assets/covers/kad-noc-broji-sitne-sate.webp" alt="Cover za pesmu Kad noć broji sitne sate" loading="lazy">
+            <span class="song-mood">Lagana boemska</span>
+          </div>
+          <div class="song-body">
+            <h3>Kad noć broji sitne sate</h3>
+            <p>Lagana boemska pesma o vinu, sećanjima i praznim čašama.</p>
+            <button class="song-btn" type="button" data-video="assets/videos/kad-noc-broji-sitne-sate.mp4">Pusti video</button>
+          </div>
+        </article>
+        
+
+        <article class="song-card reveal">
+          <div class="song-poster">
+            <img src="assets/covers/ja-placem-u-pesmama.webp" alt="Cover za pesmu Ja plačem u pesmama" loading="lazy">
+            <span class="song-mood">Emotivna</span>
+          </div>
+          <div class="song-body">
+            <h3>Ja plačem u pesmama</h3>
+            <p>Pesma u kojoj suze ne kriju slabost, već ono što duša nosi.</p>
+            <button class="song-btn" type="button" data-video="assets/videos/ja-placem-u-pesmama.mp4">Pusti video</button>
+          </div>
+        </article>
+        
+
+        <article class="song-card reveal">
+          <div class="song-poster">
+            <img src="assets/covers/ne-brinite-vi-za-moju-tugu.webp" alt="Cover za pesmu Ne brinite vi za moju tugu" loading="lazy">
+            <span class="song-mood">Kafanska</span>
+          </div>
+          <div class="song-body">
+            <h3>Ne brinite vi za moju tugu</h3>
+            <p>Tuga koja ne traži sažaljenje, nego svoju meru i svoj ponos.</p>
+            <button class="song-btn" type="button" data-youtube="https://www.youtube.com/@dusicajovovicofficial">YouTube kanal</button>
+          </div>
+        </article>
+        
+
+        <article class="song-card reveal">
+          <div class="song-poster">
+            <img src="assets/covers/malena.webp" alt="Cover za pesmu Malena" loading="lazy">
+            <span class="song-mood">Ljubavna</span>
+          </div>
+          <div class="song-body">
+            <h3>Malena</h3>
+            <p>Nežnija strana pesmarice, tiha emocija u jednostavnoj priči.</p>
+            <button class="song-btn" type="button" data-video="assets/videos/malena.mp4">Pusti video</button>
+          </div>
+        </article>
+        
+
+        <article class="song-card reveal">
+          <div class="song-poster">
+            <img src="assets/covers/muskarac-starog-kova.webp" alt="Cover za pesmu Muškarac starog kova" loading="lazy">
+            <span class="song-mood">Karakter</span>
+          </div>
+          <div class="song-body">
+            <h3>Muškarac starog kova</h3>
+            <p>Pesma o dostojanstvu, karakteru i vremenu koje ne prolazi.</p>
+            <button class="song-btn" type="button" data-video="assets/videos/muskarac-starog-kova.mp4">Pusti video</button>
+          </div>
+        </article>
+        
+
+        <article class="song-card reveal">
+          <div class="song-poster">
+            <img src="assets/covers/otkud-muzicar-moju-pesmu-zna.webp" alt="Cover za pesmu Otkud muzičar moju pesmu zna" loading="lazy">
+            <span class="song-mood">Kafanska emocija</span>
+          </div>
+          <div class="song-body">
+            <h3>Otkud muzičar moju pesmu zna</h3>
+            <p>Trenutak kada muzičar zasvira baš ono što srce nije izgovorilo.</p>
+            <button class="song-btn" type="button" data-youtube="https://www.youtube.com/@dusicajovovicofficial">YouTube kanal</button>
+          </div>
+        </article>
+        
+      </div>
+    </section>
+
+    <section class="collab section-pad" id="saradnja">
+      <div class="collab-card">
+        <div>
+          <div class="eyebrow">Za izvođače i saradnju</div>
+          <h2>Pesme spremne da pronađu svoj glas.</h2>
+          <p>
+            Ove pesme su dostupne za ozbiljnu muzičku saradnju sa izvođačima, aranžerima i producentima
+            koji u njima prepoznaju emociju, priču i scenski potencijal.
+          </p>
+        </div>
+        <div class="collab-actions">
+          <a class="btn primary" href="https://wa.me/381638362663" target="_blank" rel="noopener">Kontakt preko WhatsApp-a</a>
+          <a class="btn ghost" href="mailto:dusicajovovic524@gmail.com">Pošalji email</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact section-pad" id="kontakt">
+      <div class="section-head compact">
+        <div>
+          <div class="eyebrow">Kontakt</div>
+          <h2>Dušica Jovović</h2>
+        </div>
+      </div>
+      <div class="contact-grid" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr));">
+        <a href="https://www.youtube.com/@dusicajovovicofficial" target="_blank" rel="noopener">YouTube kanal</a>
+        <a href="https://www.instagram.com/dusica_jovovic/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.facebook.com/share/1DTjynYViL/" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://www.tiktok.com/@dusicajovovicexpa?_r=1&_t=ZS-98csKrmwOTB" target="_blank" rel="noopener">TikTok</a>
+        <a href="https://wa.me/381638362663" target="_blank" rel="noopener">WhatsApp: +381 63 8362663</a>
+        <a href="mailto:dusicajovovic524@gmail.com">dusicajovovic524@gmail.com</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year"></span> Dušica Jovović · Pesmarica duše</p>
+    <p>Tekstovi: Dušica Jovović · Autorska prava zaštićena kod SOKOJ-a</p>
+
+    <div class="dm-footer-credit" aria-label="Kredit za izradu web stranice">
+      <a href="https://www.dmdigitalenterprise.com" target="_blank" rel="noopener noreferrer">
+        <img src="assets/dm-digitalenterprise-logo.webp" alt="D&M Digitalenterprise logo" loading="lazy">
+        <span>
+          Vizuelni koncept i web stranica
+          <strong>D&M Digitalenterprise</strong>
+        </span>
+      </a>
+    </div>
+  </footer>
+
+  <dialog class="video-modal" id="videoModal" aria-label="Video plejer">
+    <button class="modal-close" id="closeModal" type="button" aria-label="Zatvori video">×</button>
+    <video id="modalVideo" controls playsinline preload="metadata"></video>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>
